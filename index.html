@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account verwijderen — ToppieGeregeld</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      max-width: 480px;
+      width: 100%;
+      padding: 40px 32px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 700;
+      color: #2C6139;
+      margin-bottom: 8px;
+    }
+    .logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #1a1a1a;
+    }
+    p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 12px;
+    }
+    .info-box {
+      background: #f0f7f1;
+      border-left: 4px solid #2C6139;
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+    .info-box p { margin-bottom: 0; }
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #333;
+    }
+    input[type="email"] {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input[type="email"]:focus { border-color: #2C6139; }
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      background: #2C6139;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.9; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .message {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      display: none;
+    }
+    .message.success {
+      display: block;
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+    .message.error {
+      display: block;
+      background: #fbe9e7;
+      color: #c62828;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">
+      <img src="./logo.png" alt="ToppieGeregeld logo" class="logo-img">
+      ToppieGeregeld
+    </div>
+    <h1>Account verwijderen</h1>
+    <p>
+      Wil je je ToppieGeregeld-account verwijderen? Vul hieronder het e-mailadres in
+      dat gekoppeld is aan je account.
+    </p>
+    <div class="info-box">
+      <p>
+        <strong>Wat gebeurt er na je verzoek:</strong><br>
+        Je account en alle bijbehorende persoonlijke gegevens (profielinformatie, opdrachtgeschiedenis
+        en berichten) worden permanent verwijderd. Dit proces wordt binnen 7 werkdagen afgerond.
+      </p>
+    </div>
+
+    <form id="deletion-form">
+      <label for="email">E-mailadres</label>
+      <input type="email" id="email" name="email" placeholder="jij@voorbeeld.nl" required>
+      <button type="submit" id="submit-btn">Verwijderverzoek indienen</button>
+    </form>
+
+    <div id="message" class="message"></div>
+  </div>
+
+  <script>
+    // TODO: Replace these values before deploying to GitHub Pages
+    const SUPABASE_PROJECT_REF = 'YOUR_PROJECT_REF'; // e.g. 'abcdefghijklmnopqrst'
+    const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';       // e.g. 'eyJhbGciOi...'
+
+    const FUNCTION_URL = `https://${SUPABASE_PROJECT_REF}.supabase.co/functions/v1/request-account-deletion`;
+
+    const form = document.getElementById('deletion-form');
+    const emailInput = document.getElementById('email');
+    const submitBtn = document.getElementById('submit-btn');
+    const messageEl = document.getElementById('message');
+
+    function showMessage(text, type) {
+      messageEl.textContent = text;
+      messageEl.className = 'message ' + type;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Bezig met verzenden…';
+      messageEl.className = 'message';
+
+      try {
+        const res = await fetch(FUNCTION_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'apikey': SUPABASE_ANON_KEY,
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          showMessage(
+            'Je verzoek is ontvangen. Je account wordt binnen 7 werkdagen verwijderd.',
+            'success'
+          );
+          form.style.display = 'none';
+        } else {
+          showMessage(data.error || 'Er is iets misgegaan. Probeer het opnieuw.', 'error');
+        }
+      } catch {
+        showMessage('Netwerkfout. Controleer je verbinding en probeer het opnieuw.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Verwijderverzoek indienen';
+      }
+    });
+  </script>
+</body>
+</html>
