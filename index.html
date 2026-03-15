@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Account verwijderen — ToppieGeregeld</title>
+  <title>Support — ToppieGeregeld</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -11,37 +11,46 @@
       background: #f5f5f5;
       color: #333;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       padding: 24px;
     }
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    .container {
       max-width: 480px;
-      width: 100%;
-      padding: 40px 32px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      padding: 32px 0 24px;
     }
     .logo {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 10px;
       font-size: 24px;
       font-weight: 700;
       color: #2C6139;
-      margin-bottom: 8px;
     }
     .logo-img {
       width: 40px;
       height: 40px;
       border-radius: 8px;
     }
-    h1 {
-      font-size: 20px;
-      font-weight: 600;
+    .header p {
+      margin-top: 8px;
+      font-size: 15px;
+      color: #555;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      width: 100%;
+      padding: 32px;
       margin-bottom: 16px;
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
       color: #1a1a1a;
     }
     p {
@@ -49,6 +58,66 @@
       line-height: 1.6;
       color: #555;
       margin-bottom: 12px;
+    }
+    a {
+      color: #2C6139;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover { text-decoration: underline; }
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: #f0f7f1;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .link-card:hover {
+      background: #e3f0e5;
+      text-decoration: none;
+    }
+    .link-card .icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .link-card .link-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2C6139;
+    }
+    .link-card .link-desc {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 0;
+    }
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 0;
+    }
+    .contact-row + .contact-row {
+      border-top: 1px solid #eee;
+    }
+    .contact-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      width: 28px;
+      text-align: center;
+    }
+    .contact-label {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 0;
+    }
+    .contact-value {
+      font-size: 14px;
+      color: #333;
+      font-weight: 500;
+      margin-bottom: 0;
     }
     .info-box {
       background: #f0f7f1;
@@ -81,7 +150,7 @@
       font-size: 16px;
       font-weight: 600;
       color: #fff;
-      background: #2C6139;
+      background: #c0392b;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -107,38 +176,80 @@
       background: #fbe9e7;
       color: #c62828;
     }
+    .footer {
+      text-align: center;
+      padding: 16px 0 32px;
+      font-size: 13px;
+      color: #999;
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="logo">
-      <img src="./logo.png" alt="ToppieGeregeld logo" class="logo-img">
-      ToppieGeregeld
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <img src="./logo.png" alt="ToppieGeregeld logo" class="logo-img">
+        ToppieGeregeld
+      </div>
+      <p>Support &amp; informatie</p>
     </div>
-    <h1>Account verwijderen</h1>
-    <p>
-      Wil je je ToppieGeregeld-account verwijderen? Vul hieronder het e-mailadres in
-      dat gekoppeld is aan je account.
-    </p>
-    <div class="info-box">
+
+    <!-- Support / Contact -->
+    <div class="card">
+      <h2>Contact &amp; support</h2>
+      <p>Heb je een vraag, probleem of suggestie? Neem gerust contact met ons op.</p>
+      <div class="contact-row">
+        <span class="contact-icon">&#9993;</span>
+        <div>
+          <p class="contact-label">E-mail</p>
+          <p class="contact-value"><a href="mailto:toppiegeregeld@outlook.com">toppiegeregeld@outlook.com</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Privacy Policy -->
+    <div class="card">
+      <h2>Privacybeleid</h2>
+      <p>Lees hoe wij omgaan met je persoonlijke gegevens.</p>
+      <a class="link-card" href="https://dysjmzmkaeygxxyiggip.supabase.co/storage/v1/object/public/legal-documents/privacy-policy.pdf" target="_blank" rel="noopener">
+        <span class="icon">&#128196;</span>
+        <div>
+          <div class="link-text">Privacybeleid bekijken (PDF)</div>
+          <p class="link-desc">Opent in een nieuw tabblad</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Account Deletion -->
+    <div class="card" id="account-verwijderen">
+      <h2>Account verwijderen</h2>
       <p>
-        <strong>Wat gebeurt er na je verzoek:</strong><br>
-        Je account en alle bijbehorende persoonlijke gegevens (profielinformatie, opdrachtgeschiedenis
-        en berichten) worden permanent verwijderd. Dit proces wordt binnen 7 werkdagen afgerond.
+        Wil je je ToppieGeregeld-account verwijderen? Vul hieronder het e-mailadres in
+        dat gekoppeld is aan je account.
       </p>
+      <div class="info-box">
+        <p>
+          <strong>Wat gebeurt er na je verzoek:</strong><br>
+          Je account en alle bijbehorende persoonlijke gegevens (profielinformatie, opdrachtgeschiedenis
+          en berichten) worden permanent verwijderd. Dit proces wordt binnen 7 werkdagen afgerond.
+        </p>
+      </div>
+
+      <form id="deletion-form">
+        <label for="email">E-mailadres</label>
+        <input type="email" id="email" name="email" placeholder="jij@voorbeeld.nl" required>
+        <button type="submit" id="submit-btn">Verwijderverzoek indienen</button>
+      </form>
+
+      <div id="message" class="message"></div>
     </div>
 
-    <form id="deletion-form">
-      <label for="email">E-mailadres</label>
-      <input type="email" id="email" name="email" placeholder="jij@voorbeeld.nl" required>
-      <button type="submit" id="submit-btn">Verwijderverzoek indienen</button>
-    </form>
-
-    <div id="message" class="message"></div>
+    <div class="footer">
+      &copy; 2026 ToppieGeregeld
+    </div>
   </div>
 
   <script>
-    // TODO: Replace these values before deploying to GitHub Pages
     const SUPABASE_PROJECT_REF = 'dysjmzmkaeygxxyiggip';
     const SUPABASE_ANON_KEY = 'sb_publishable_Sg5hbb9iTQDxOjUydcalFw_8rQKbWNA';
 
@@ -160,7 +271,7 @@
       if (!email) return;
 
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Bezig met verzenden…';
+      submitBtn.textContent = 'Bezig met verzenden\u2026';
       messageEl.className = 'message';
 
       try {
